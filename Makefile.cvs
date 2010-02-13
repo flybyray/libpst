@@ -1,0 +1,14 @@
+default: all
+
+HOST=$(shell hostname)
+
+all:
+	libtoolize --force --copy
+	aclocal -I m4
+	autoheader
+	automake
+	autoconf
+	./configure >/dev/null
+	rm -rf html.internal
+	doxygen
+	tar cfz libpst.html.tar.gz html.internal
